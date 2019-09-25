@@ -1,0 +1,30 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "iisSettings": {
+    "windowsAuthentication": false, 
+    "anonymousAuthentication": true,
+		"iisExpress": {
+			"applicationUrl": "http://localhost:15500",
+			"sslPort": 0
+		}
+  },
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "launchUrl": "api/contact/1",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+		"AddressBook.API": {
+			"commandName": "Project",
+			"launchBrowser": true,
+			"launchUrl": "api/contact/1",
+			"applicationUrl": "http://localhost:15550",
+			"environmentVariables": {
+				"ASPNETCORE_ENVIRONMENT": "Development"
+			}
+		}
+  }
+}
