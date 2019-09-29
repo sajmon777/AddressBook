@@ -43,6 +43,7 @@ namespace AddressBook.Business.Maping
 				mapper.Length(50);
 				mapper.Type(NHibernateUtil.StringClob);
 				mapper.NotNullable(true);
+				mapper.Index("idx__telephonenumber");
 			});
 		}
 	}

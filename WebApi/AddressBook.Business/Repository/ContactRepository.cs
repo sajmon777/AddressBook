@@ -7,6 +7,7 @@ using System.Linq;
 using AddressBook.Business.Infrastructure;
 using System.Collections.Generic;
 using NHibernate.Criterion;
+using System;
 
 namespace Humans.Business.Repository
 {
@@ -51,7 +52,7 @@ namespace Humans.Business.Repository
 
 		public Contact GetContactByTelephoneNumber(string telephoneNumber)
 		{
-			return _session.Query<Contact>().Where(x => x.TelephoneNumber == telephoneNumber).FirstOrDefault();
+			return _session.Query<Contact>().Where(x => x.TelephoneNumber.Replace(" ", String.Empty) == telephoneNumber.Replace(" ", String.Empty)).FirstOrDefault();
 		}
 
 		public Contact InsertContact(Contact contact)
