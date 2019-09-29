@@ -4,8 +4,9 @@ using AddressBook.Business.Model;
 using Humans.Business.RepositoryInterfaces;
 using NHibernate;
 using System.Linq;
-using System.Threading.Tasks;
 using AddressBook.Business.Infrastructure;
+using System.Collections.Generic;
+using NHibernate.Criterion;
 
 namespace Humans.Business.Repository
 {
@@ -22,6 +23,31 @@ namespace Humans.Business.Repository
 		{
 			return _session.Get<Contact>(id);
 		}
+
+		public List<Contact> GetContactList()
+		{
+			return _session.Query<Contact>().ToList();
+		}
+
+		public GridResult<Contact> GetContactGrid(GridInfo<ContactFilter> gridInfo)
+		{
+			var query = _session.QueryOver<Contact>();
+			if (gridInfo.Filter != null)
+			{
+				if (!string.IsNullOrWhiteSpace(gridInfo.Filter.FirstName))
+					query.WhereRestrictionOn(x => x.FirstName).IsLike(gridInfo.Filter.FirstName,MatchMode.Anywhere);
+				if (!string.IsNullOrWhiteSpace(gridInfo.Filter.LastName))
+					query.WhereRestrictionOn(x => x.LastName).IsLike(gridInfo.Filter.LastName, MatchMode.Anywhere);
+				if (!string.IsNullOrWhiteSpace(gridInfo.Filter.Address))
+					query.WhereRestrictionOn(x => x.Address).IsLike(gridInfo.Filter.Address, MatchMode.Anywhere);
+				if (!string.IsNullOrWhiteSpace(gridInfo.Filter.TelephoneNumber))
+					query.WhereRestrictionOn(x => x.TelephoneNumber).IsLike(gridInfo.Filter.TelephoneNumber, MatchMode.Anywhere);
+			}
+			query.Take(gridInfo.PageSize).Skip(gridInfo.Skip);
+
+			return new GridResult<Contact>(query.List<Contact>().ToList(), query.RowCount());
+		}
+
 
 		public Contact GetContactByTelephoneNumber(string telephoneNumber)
 		{

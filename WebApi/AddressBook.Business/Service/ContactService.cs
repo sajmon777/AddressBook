@@ -5,6 +5,7 @@ using Humans.Business.ServiceInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Humans.Business.Service
@@ -21,6 +22,17 @@ namespace Humans.Business.Service
 		{
 			return _contactRepository.GetContact(id);
 		}
+
+		public List<Contact> GetContactList()
+		{
+			return _contactRepository.GetContactList();
+		}
+
+		public GridResult<Contact> GetContactGrid(GridInfo<ContactFilter> gridInfo)
+		{
+			return _contactRepository.GetContactGrid(gridInfo);
+		}
+
 		public virtual Contact InsertContact(Contact contact)
 		{
 			ContactValidation(contact);
@@ -49,14 +61,24 @@ namespace Humans.Business.Service
 				errs.Add(new RuleViolation(() => contact.Address, "Required"));
 			if (string.IsNullOrWhiteSpace(contact.TelephoneNumber))
 				errs.Add(new RuleViolation(() => contact.TelephoneNumber, "Required"));
-			else
-			{
+			else if (!IsValidPhone(contact.TelephoneNumber)) {
+				errs.Add(new RuleViolation(() => contact.TelephoneNumber, "Format"));
+			}
+			else{
 				var existingContact = _contactRepository.GetContactByTelephoneNumber(contact.TelephoneNumber);
 				if (existingContact != null && (existingContact.Id != contact.Id))
 					errs.Add(new RuleViolation(() => contact.TelephoneNumber, "Exists"));
 			}
 			if (errs.Count > 0)
 				throw new RuleViolationException(errs);
+		}
+
+		public bool IsValidPhone(string telephoneNumber)
+		{
+			if (string.IsNullOrEmpty(telephoneNumber))
+				return false;
+			var r = new Regex(@"^(([0-9]{3})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))|([0-9]{9})|([\+]?([0-9]{3})[ \-\/]?([0-9]{2})[ \-\/]?([0-9]{3})[ \-\/]?([0-9]{3}))$");
+			return r.IsMatch(telephoneNumber);
 		}
 	}
 }

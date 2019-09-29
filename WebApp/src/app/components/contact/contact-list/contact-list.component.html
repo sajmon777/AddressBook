@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-sm-3">
+    <app-contact-filter (filterChange)="filterChange($event)"></app-contact-filter>
+  </div>
+
+  <div class="col-sm-9">
+    <button routerLink="/contact" class="btn btn-primary">Add Contact</button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Telephone number</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contact of contacts">
+          <td>{{ contact.firstName }}</td>
+          <td>{{ contact.lastName }}</td>
+          <td>{{ contact.address }}</td>
+          <td>{{ contact.telephoneNumber }}</td>
+          <td><button routerLink="/contact/{{contact.id}}" class="btn btn-primary btn-sm">View</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+        (pageChange)="pageChange($event)">
+      </ngb-pagination>
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (change)="pageSizeChange()">
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="20">20</option>
+        <option [ngValue]="50">50</option>
+      </select>
+    </div>
+  </div>
+</div>

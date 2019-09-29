@@ -9,4 +9,12 @@ namespace AddressBook.Business.Model
 		public virtual string Address { get; set; }
 		public virtual string TelephoneNumber { get; set; }
 	}
+
+	public class ContactFilter
+	{
+		public virtual string FirstName { get; set; }
+		public virtual string LastName { get; set; }
+		public virtual string Address { get; set; }
+		public virtual string TelephoneNumber { get; set; }
+	}
 }

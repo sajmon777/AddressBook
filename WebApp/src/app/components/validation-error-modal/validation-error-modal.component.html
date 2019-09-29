@@ -1,0 +1,15 @@
+<div class="modal-header" style="background: red">
+    <h4 class="modal-title">Validation errors!</h4>
+    <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <ul class="list-group">
+        <li *ngFor="let validationError of validationErrors" class="list-group-item list-group-item-danger">
+            {{validationError.Identifier}} : {{ validationError.Message }}
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+</div>

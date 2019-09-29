@@ -48,6 +48,7 @@ namespace AddressBook.API
 				app.UseDeveloperExceptionPage();
 			}
 
+			app.UseMiddleware<ExceptionMiddleware>();
 			app.UseMvc();
 		}
 	}
