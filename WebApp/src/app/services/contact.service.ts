@@ -58,21 +58,4 @@ export class ContactService {
             catchError(this.errorService.handleHttpError)
         );
     }
-
-    // private handleError(error) {
-    //    // this.errorService.openFormModal();
-    //     let errorMessage = '';
-    //     if (error.error instanceof ErrorEvent) {
-    //         // client-side error
-    //         errorMessage = `Error: ${error.error.message}`;
-    //     } else {
-    //         // server-side error
-    //         const toDo = error.error as ErrorDetails;
-
-    //         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    //         //return throwError(toDo);
-    //     }
-    //     window.alert(errorMessage);
-    //     return throwError(errorMessage);
-    // }
 }

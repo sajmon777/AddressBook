@@ -1,7 +1,7 @@
 import { ErrorHandler, Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { throwError, Observable, empty, of } from 'rxjs';
-import { ErrorDetails, RuleViolation } from '../infrastructure/error-info';
+import { throwError,} from 'rxjs';
+import { RuleViolation } from '../infrastructure/error-info';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ValidationErrorModalComponent } from '../components/validation-error-modal/validation-error-modal.component';
 import { ErrorModalComponent } from '../components/error-modal/error-modal.component';
