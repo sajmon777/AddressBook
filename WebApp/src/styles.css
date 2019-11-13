@@ -1,2 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css"
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+.my-custom-class .tooltip-inner {
+    background-color: #007bff;
+    font-size: 125%;
+  }
+  .my-custom-class .arrow::before {
+    border-top-color: #007bff;
+  }

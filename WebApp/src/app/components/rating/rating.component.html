@@ -1,0 +1,5 @@
+<ngb-rating [(rate)]="currentRate"  max="5" (rateChange)= "rateChange()" tabIndex="-1" style="outline: none; ">
+    <ng-template let-fill="fill" let-index="index">
+        <span class="star" [class.filled]="fill === 100" [ngbTooltip]="getToolTip(index)" tooltipClass="my-custom-class">&#9733;</span>
+    </ng-template>
+</ngb-rating>
